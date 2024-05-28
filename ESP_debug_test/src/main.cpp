@@ -6,8 +6,9 @@
 
 #include <Arduino.h>
 
-// Set LED_BUILTIN if it is not defined by Arduino framework
-//#define LED_BUILTIN 2
+// Set LED_BUILTIN if it is not defined by Arduino framework i.e. using board = esp32dev
+// Comment out if using board = esp32doit-devkit-v1 as LED_BUILTIN is defined therein
+#define LED_BUILTIN 2
 
 void setup()
 {
@@ -18,17 +19,17 @@ void setup()
   Serial.println("Start");
 }
 
-int delayTime = 200;
+int delayTime = 100;
 
 void blink_led()
 {
-  digitalWrite(LED_BUILTIN, HIGH); // turn the LED on (HIGH is the voltage level)
-  //Serial.println("The Blue LED is on");
+  digitalWrite(LED_BUILTIN, HIGH); // turn the LED off (HIGH is the voltage level)
+  Serial.println("The Blue LED is off");
   delay(delayTime); // wait for a second
-  digitalWrite(LED_BUILTIN, LOW); // turn the LED off by making the voltage LOW
-  //Serial.println("The Blue LED is off");
-  //Serial.println(ESP.getFlashChipSize());
-  //Serial.println(ESP.getFreeSketchSpace());
+  digitalWrite(LED_BUILTIN, LOW); // turn the LED on by making the voltage LOW
+  Serial.println("The Blue LED is on");
+  Serial.println(ESP.getFlashChipSize(),HEX);
+  Serial.println(ESP.getFreeSketchSpace(),HEX);
   delay(delayTime); // wait for a second
 }
 
