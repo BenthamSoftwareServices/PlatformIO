@@ -1,0 +1,78 @@
+# SAMD21‑M0‑Mini (Clone) — PlatformIO + J‑Link Setup
+
+## Overview
+
+This folder provides a complete PlatformIO setup for the low‑cost SAMD21‑M0‑Mini clone module (as distributed from sellers such as the AliExpress listing below).  
+It enables:
+
+- Upload via USB bootloader (SAM‑BA)  
+- Upload & debugging via J‑Link (no USB cable needed)  
+- Built‑in LED (on D13 / PA17) blink + USB serial test sketch  
+- Dual‑environment PlatformIO configuration for flexible workflow  
+
+### Module reference
+
+- Original / community variant: [SAMD21-M0-Mini on GitHub by B. Lavery](https://github.com/BLavery/SAMD21-M0-Mini)  
+- Example retail module: SAMD21 M0 Mini on AliExpress — **[link]**
+
+## Files included
+
+| File / Folder | Purpose |
+|---------------|---------|
+| `samd21_m0_mini.json` | Custom board definition for PlatformIO. Must reside in `atmelsam/boards/`. |
+| `platformio.ini` (dual‑environment) | Defines two environments: `usb` (SAM-BA upload + USB serial) and `jlink` (J-Link upload & debug). |
+| `src/main.cpp` | Test sketch: blinks built-in LED and outputs counter over USB serial (with 2 s timeout if no USB). |
+| `variants/samd21_m0_mini/` | Contains Arduino‑core pin mapping files (`variant.h`, `variant.cpp`) adjusted for this clone. |
+
+## Prerequisites
+
+- [PlatformIO](https://platformio.org/) installed (as part of VSCode or CLI).  
+- J‑Link (e.g., J-Link EDU Mini) — for SWD programming/debugging.  
+- Optional: USB cable + bootloader for SAM‑BA upload / USB serial / bootloader fallback.
+
+## How to Use
+
+### Environment selection (in VSCode PIO status bar)
+
+- **USB mode** → select environment `samd21_m0_mini_usb`  
+  - Upload via USB bootloader (SAM‑BA)  
+  - Serial output over USB (if cable connected)  
+
+- **J-Link mode** → select environment `samd21_m0_mini_jlink`  
+  - Upload via J-Link SWD (no USB needed)  
+  - Debugging enabled via J-Link (breakpoints, step, inspect variables)  
+  - LED blink remains active; SerialUSB prints are skipped if no USB  
+
+### Typical workflow (J-Link mode)
+
+1. Connect J‑Link to SAMD21 module (SWD pins)  
+2. In VSCode, select `samd21_m0_mini_jlink` in Environment dropdown  
+3. Click **Upload** → code is flashed via J-Link  
+4. Click **Debug** → program halts at setup (per `debug_init_break = tbreak setup`)  
+5. Use breakpoints / step through / inspect variables  
+
+### Typical workflow (USB mode)
+
+1. Connect USB cable to module  
+2. Select `samd21_m0_mini_usb` in Environment dropdown  
+3. Click **Upload** → SAM‑BA bootloader uploads firmware  
+4. Click **Monitor** → view serial output at 115200 baud  
+
+## Notes & Tips
+
+- The sketch uses a 2‑second timeout on `SerialUSB` init; this prevents hanging if you debug via J-Link without USB connected.  
+- Built-in LED is on **digital pin 13 (PA17)** — defined in variant mapping.  
+- The custom `variant.h / .cpp` defines proper pin mapping for the clone module to work with Arduino-style code.  
+- If you want to debug with breakpoints, ensure `build_type = debug` in the `jlink` environment.  
+- If uploading via USB doesn’t work (e.g., bootloader missing), use J-Link mode instead — no need for USB cable.  
+
+## Disclaimer
+
+This setup is based on community‑provided pin mapping and core files (see “SAMD21‑M0‑Mini on GitHub by B. Lavery”). The clone modules may vary slightly between sellers (power circuits, bootloader presence, PCB revisions).  
+
+Use with precaution: verify pinout, supply voltage, and SWD connections before programming.  
+
+## License & Contribution
+
+You are free to fork, modify, and redistribute this setup. Contributions/improvements are welcome — e.g., updates to variant mapping, improved bootloader support, additional examples (I²C, SPI), or including pre-built binaries.  
+
