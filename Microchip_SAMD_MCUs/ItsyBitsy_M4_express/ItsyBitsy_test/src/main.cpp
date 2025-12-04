@@ -11,9 +11,9 @@ void setup() {
 
 void loop() {
   digitalWrite(13, HIGH);  // Red LED on
-  delay(100);
+  delay(1000);
   digitalWrite(13, LOW);   // Red LED off
-  delay(100);
+  delay(1000);
   counter++;
 
   // Use Real Time Transfer to stream data to RTT Viewer app on host PC

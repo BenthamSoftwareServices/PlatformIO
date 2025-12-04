@@ -1,26 +1,35 @@
 #include <Arduino.h>
 
 void setup() {
-  SerialUSB.begin(115200);
-  while (!SerialUSB) {
-    ; // Wait for USB serial to connect
-  }
+    SerialUSB.begin(115200);
 
-  SerialUSB.println("SAMD21-M0-Mini: Serial loop test starting...");
+    // Wait for SerialUSB to become active up to 2 seconds
+    uint32_t startTime = millis();
+    while (!SerialUSB && (millis() - startTime < 2000)) {
+        // just wait, but only for 2 seconds
+    }
 
-  pinMode(13, OUTPUT);   // Built-in LED at PA17
+    pinMode(13, OUTPUT);   // Built-in LED at PA17
+
+    if (SerialUSB) {
+        SerialUSB.println("SAMD21-M0-Mini: Serial loop test starting...");
+    }
 }
 
 void loop() {
-  static uint32_t counter = 0;
+    static uint32_t counter = 0;
 
-  // Toggle LED every 250 ms
-  digitalWrite(13, !digitalRead(13));
+    // Toggle LED every 250 ms
+    digitalWrite(13, !digitalRead(13));
 
-  // Print the counter every loop (every 250 ms)
-  SerialUSB.print("Loop counter: ");
-  SerialUSB.println(counter);
+    // Print counter every 1 second
+    if (counter % 4 == 0) {  // 4 * 250 ms = 1 s
+        if (SerialUSB) {
+            SerialUSB.print("Loop counter: ");
+            SerialUSB.println(counter / 4);
+        }
+    }
 
-  counter++;
-  delay(2000);
+    counter++;
+    delay(250);
 }
