@@ -35,18 +35,19 @@ void loop()
 
     // 8 million iterations at 48MHz provides a human-visible delay
     // without using the crashing SysTick timer.
-    for (uint32_t i = 0; i < 100000; i++)
+    for (uint32_t i = 0; i < 1000000; i++)
     {
         __asm__("nop");
     }
 
     digitalWrite(ledPin, LOW); // Turn on LED
 
-    // 8 million iterations at 48MHz provides a human-visible delay
-    // without using the crashing SysTick timer.
-    for (uint32_t i = 0; i < 1000000; i++)
+    for (uint32_t i = 0; i < (1000); i++) // Set value in mS
     {
-        __asm__("nop");
+        for (uint32_t j = 0; j < 8000; j++) // Calibrated for ~1mS at 48MHz clock speed
+        {
+            __asm__ volatile("nop"); // 'volatile' prevents the compiler from optimising the loop away
+        }
     }
 
     counter++; // Increment the counter
