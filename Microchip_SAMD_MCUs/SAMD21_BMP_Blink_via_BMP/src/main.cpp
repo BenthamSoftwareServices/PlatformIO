@@ -9,6 +9,8 @@
 // On the M0 Mini, D13 is often the built-in LED
 const int ledPin = 13;
 int counter = 5;
+uint32_t led_time_off =1000; // Set the LED off time in mS
+uint32_t led_time_on =1000; // Set the LED on time in mS
 
 /**
  * @brief A blocking delay that does not use SysTick or interrupts.
@@ -42,7 +44,7 @@ void loop()
 
     digitalWrite(ledPin, LOW); // Turn on LED
 
-    for (uint32_t i = 0; i < (1000); i++) // Set value in mS
+    for (uint32_t i = 0; i < (led_time_on); i++) // Set value in mS
     {
         for (uint32_t j = 0; j < 8000; j++) // Calibrated for ~1mS at 48MHz clock speed
         {
