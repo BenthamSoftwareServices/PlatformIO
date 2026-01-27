@@ -6,7 +6,6 @@
 
 #include <Arduino.h>
 
-
 // On the M0 Mini, D13 is often the built-in LED
 const int ledPin = 13;
 int counter = 5;
@@ -33,20 +32,22 @@ void setup()
 void loop()
 {
     digitalWrite(ledPin, HIGH); // Turn off LED
-    
+
     // 8 million iterations at 48MHz provides a human-visible delay
-  // without using the crashing SysTick timer.
-  for (uint32_t i = 0; i < 1000000; i++) {
-      __asm__("nop"); 
-  }
+    // without using the crashing SysTick timer.
+    for (uint32_t i = 0; i < 100000; i++)
+    {
+        __asm__("nop");
+    }
 
     digitalWrite(ledPin, LOW); // Turn on LED
-    
+
     // 8 million iterations at 48MHz provides a human-visible delay
-  // without using the crashing SysTick timer.
-  for (uint32_t i = 0; i < 1000000; i++) {
-      __asm__("nop"); 
-  }
+    // without using the crashing SysTick timer.
+    for (uint32_t i = 0; i < 1000000; i++)
+    {
+        __asm__("nop");
+    }
 
     counter++; // Increment the counter
 
