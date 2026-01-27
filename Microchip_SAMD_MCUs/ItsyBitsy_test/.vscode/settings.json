@@ -1,0 +1,16 @@
+{
+    "cSpell.words": [
+        "flto",
+        "ggdb",
+        "itsybitsy",
+        "jlink",
+        "unflags"
+    ],
+    "C_Cpp.clang_format_path": "C:\\Users\\Steven\\.vscode\\extensions\\ms-vscode.cpptools-1.29.2-win32-x64\\LLVM\\bin\\clang-format.exe",
+    "editor.defaultFormatter": "ms-vscode.cpptools-extension-pack",
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4 }",
+    "github.copilot.nextEditSuggestions.enabled": false,
+    "github.copilot.enable": {
+        "*": false
+    }
+}

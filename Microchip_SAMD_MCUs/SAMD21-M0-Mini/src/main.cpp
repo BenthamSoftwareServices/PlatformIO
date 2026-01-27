@@ -1,35 +1,42 @@
 #include <Arduino.h>
+#include <RTTStream.h>
+
+/* * PROJECT: SAMD21 Stable Debug (UART + RTT)
+ * HARDWARE: SAMD21-M0-Mini + J-Link (Integrated COM)
+ * * ---------------------------------------------------
+ * This code transmits debug data across two physical paths
+ * simultaneously. UART is sent to the J-Link CDC port (COM4),
+ * and RTT is sent via the SWD pins to the RTT Viewer.
+ */
+
+RTTStream RTT; 
 
 void setup() {
-    SerialUSB.begin(115200);
+    // Initialise the J-Link CDC UART port
+    Serial1.begin(115200);
 
-    // Wait for SerialUSB to become active up to 2 seconds
-    uint32_t startTime = millis();
-    while (!SerialUSB && (millis() - startTime < 2000)) {
-        // just wait, but only for 2 seconds
-    }
+    pinMode(13, OUTPUT);   
 
-    pinMode(13, OUTPUT);   // Built-in LED at PA17
-
-    if (SerialUSB) {
-        SerialUSB.println("SAMD21-M0-Mini: Serial loop test starting...");
-    }
+    // RTT requires no initialisation; it is ready on boot.
+    Serial1.println("--- System Online (UART/COM4) ---");
+    RTT.println("--- System Online (RTT/SWD) ---");
 }
 
 void loop() {
     static uint32_t counter = 0;
 
-    // Toggle LED every 250 ms
+    // Toggle onboard LED
     digitalWrite(13, !digitalRead(13));
 
-    // Print counter every 1 second
-    if (counter % 4 == 0) {  // 4 * 250 ms = 1 s
-        if (SerialUSB) {
-            SerialUSB.print("Loop counter: ");
-            SerialUSB.println(counter / 4);
-        }
-    }
+    // Path 1: Hardware UART (visible in PIO Terminal)
+    Serial1.print("Count: ");
+    Serial1.println(counter);
+    Serial1.flush(); // Essential for J-Link breakpoint stability
+
+    // Path 2: SEGGER RTT (visible in RTT Viewer)
+    RTT.print("Count: ");
+    RTT.println(counter);
 
     counter++;
-    delay(250);
+    delay(500); 
 }
