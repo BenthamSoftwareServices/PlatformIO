@@ -1,8 +1,8 @@
-/********************************************************************
- * Project: SAMD21_BMP_Blink_via_BMP
- * Target: SAMD21-M0-Mini (Arduino Zero Native)
- * Description: Basic Blink on Digital Pin 13
- ********************************************************************/
+// ==================================================================
+// Project:     SAMD21_BMP_Blink_via_BMP
+// Target:      SAMD21-M0-Mini (Arduino Zero Native)
+// Description: Basic Blink on Digital Pin 13
+// ==================================================================
 
 #include <Arduino.h>
 
