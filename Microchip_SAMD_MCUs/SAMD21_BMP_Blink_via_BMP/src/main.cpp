@@ -9,7 +9,7 @@
 // On the M0 Mini, D13 is often the built-in LED
 const int ledPin = 13;
 int counter = 5;
-uint32_t led_time_off =1000; // Set the LED off time in mS
+uint32_t led_time_off =8000000; // Set the LED off time in clock cycles
 uint32_t led_time_on =1000; // Set the LED on time in mS
 
 /**
@@ -37,7 +37,7 @@ void loop()
 
     // 8 million iterations at 48MHz provides a human-visible delay
     // without using the crashing SysTick timer.
-    for (uint32_t i = 0; i < 1000000; i++)
+    for (uint32_t i = 0; i < led_time_off; i++)  // led_time_off could be replaced by a number e.g. 8000000 for approx 1S delay
     {
         __asm__("nop");
     }
