@@ -27,6 +27,7 @@ void loop() {
 
     // Toggle onboard LED
     digitalWrite(13, !digitalRead(13));
+    delay(50);
 
     // Path 1: Hardware UART (visible in PIO Terminal)
     Serial1.print("Count: ");
@@ -38,5 +39,5 @@ void loop() {
     RTT.println(counter);
 
     counter++;
-    delay(500); 
+    delay(200); 
 }
