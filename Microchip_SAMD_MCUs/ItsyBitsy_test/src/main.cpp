@@ -21,7 +21,7 @@ void setup() {
 
 void loop() {
   digitalWrite(13, HIGH);  // Red LED on
-  delay(500);
+  delay(1500);
   digitalWrite(13, LOW);   // Red LED off
   delay(500);
   counter++;
