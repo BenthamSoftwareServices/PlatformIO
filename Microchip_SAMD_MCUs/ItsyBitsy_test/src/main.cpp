@@ -1,3 +1,15 @@
+/*
+[SUMMARY]
+Migrated from blocking delay() macros to a non-blocking state machine using 
+the millis() function. This approach leverages the 120MHz M4 clock and 
+ensures the J-Link EDU mini remains synchronized via the nReset line.
+
+[HARDWARE CONFIGURATION]
+1. MCU: SAMD51G19A (120MHz, 32-bit Cortex-M4F)
+2. DEBUGGER: J-Link EDU mini with physical nReset to ItsyBitsy RST pin.
+3. OUTPUTS: PA22 (D13 Red LED), PA17 (Hardware Serial1 TX).
+*/
+
 
 #include <Arduino.h>   // Mandatory for PlatformIO to define uint32_t, pinMode, etc.
 #include <RTTStream.h> // Library for SEGGER Real Time Transfer
