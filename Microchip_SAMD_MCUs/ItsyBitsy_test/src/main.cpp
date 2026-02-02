@@ -1,43 +1,77 @@
-#include <Arduino.h> // Include Arduino core library
-#include <RTTStream.h> // Include RTTStream library, an alternative to Serial1 for real-time data transfer
 
-const long BAUD_RATE = 115200;
+#include <Arduino.h>   // Mandatory for PlatformIO to define uint32_t, pinMode, etc.
+#include <RTTStream.h> // Library for SEGGER Real Time Transfer
 
-RTTStream rtt;  // Create RTTStream object
+// Configuration constants
+const uint32_t BAUD_RATE = 115200;
+RTTStream rtt;
+uint32_t counter = 0;
 
-int counter = 0; // Initialize counter variable
+// Timing variables
+uint32_t previousMillis = 0;
+uint32_t currentInterval = 400; 
 
-void setup() {
-  pinMode(13, OUTPUT); // Set pin 13 as output (usually connected to onboard LED) PA22 on MCU
-  delay(1000);  // Give debugger time to fully attach
-  asm("nop");
-  Serial1.begin(BAUD_RATE); // Initialize Serial1 at BAUD_RATE
-  Serial1.print("\033[2J\033[H");  // Clear terminal screen and move cursor to home position
-  //#ifdef DEBUG
-    //Serial1.flush();  // Only flush when debugging, to ensure all data is sent
-  //#endif
-  
+enum SystemState 
+{
+    LED_ON,
+    LED_OFF
+};
+
+SystemState currentState = LED_ON;
+
+void setup() 
+{
+    // Initialize hardware pins
+    pinMode(13, OUTPUT); 
+    
+    // Initialize Serial1 (Hardware TX on PA17)
+    Serial1.begin(BAUD_RATE);
+    
+    // Hardware-safe wait for debugger attachment
+    uint32_t startWait = millis();
+    while (millis() - startWait < 1000) 
+    {
+        __asm__ volatile ("nop");
+    }
+
+    // ANSI Escape codes to clear terminal
+    Serial1.print("\033[2J\033[H"); 
+    Serial1.println("SAMD51 (M4) System Initialised...");
+    
+    digitalWrite(13, HIGH); 
 }
 
-void loop() {
-  digitalWrite(13, HIGH);  // Red LED on
-  delay(1500);
-  digitalWrite(13, LOW);   // Red LED off
-  delay(500);
-  counter++;
+void loop() 
+{
+    uint32_t currentMillis = millis();
 
-Serial1.print("Hardware TX on PA17 ");
-//#ifdef DEBUG
-    //Serial1.flush();  // Only flush when debugging
-  //#endif
-  Serial1.println(millis());
-//#ifdef DEBUG
-    //Serial1.flush();  // Only flush when debugging
-  //#endif
-  
-  //Use Real Time Transfer to stream data to RTT Viewer app on host PC
-  rtt.print("Counter: ");  // Use RTTStream to print counter value
-  rtt.print(counter); // Print the current counter value
-  rtt.println(" - Hello world!"); // Print a message
+    // State machine logic for non-blocking delays
+    if (currentMillis - previousMillis >= currentInterval) 
+    {
+        previousMillis = currentMillis; 
 
+        if (currentState == LED_ON) 
+        {
+            digitalWrite(13, LOW);      // Turn LED off
+            currentInterval = 500;      // Set interval for 500ms OFF
+            currentState = LED_OFF;
+        }
+        else if (currentState == LED_OFF) 
+        {
+            digitalWrite(13, HIGH);     // Turn LED on
+            currentInterval = 400;      // Set interval for 400ms ON
+            currentState = LED_ON;
+
+            counter++;
+
+            // Data reporting
+            Serial1.print("Hardware TX on PA17 | MS: ");
+            Serial1.println(millis());
+            
+            // RTT reporting
+            rtt.print("M4 Counter: ");
+            rtt.print(counter);
+            rtt.println(" - RTT Reliable");
+        }
+    }
 }
