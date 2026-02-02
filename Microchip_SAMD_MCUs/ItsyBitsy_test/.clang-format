@@ -1,0 +1,24 @@
+---
+# This formatting specification file over-rides any formatting instructions in the settings.json file
+# as sometimes when the C++ extension is updated it adds an absolute path to Clang.exe which can cause formatting to fail
+Language: Cpp
+BasedOnStyle: Google
+AccessModifierOffset: -4
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignOperands: true
+AlignTrailingComments: true
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+# This is the "Allman" magic:
+BreakBeforeBraces: Allman
+ColumnLimit: 120
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+...
