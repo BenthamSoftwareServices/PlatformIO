@@ -10,7 +10,7 @@ ensures the J-Link EDU mini remains synchronized via the nReset line.
 3. OUTPUTS: PA22 (D13 Red LED), PA17 (Hardware Serial1 TX).
 */
 
-#include <Arduino.h>  // Mandatory for PlatformIO to define uint32_t, pinMode, etc.
+#include <Arduino.h>    // Mandatory for PlatformIO to define uint32_t, pinMode, etc.
 #include <RTTStream.h>  // Library for SEGGER Real Time Transfer
 
 // Configuration constants
@@ -20,10 +20,9 @@ uint32_t counter = 0;
 
 // Timing variables
 uint32_t previousMillis = 0;
-uint32_t currentInterval =
-    400;  // Do not initialise to 0 as this would cause the code to skip the
-          // first 400ms "ON" phase and jump straight into the "OFF" phase
-          // instantly upon startup
+uint32_t currentInterval = 400;  // Do not initialise to 0 as this would cause the code to skip the
+                                 // first 400ms "ON" phase and jump straight into the "OFF" phase
+                                 // instantly upon startup
 
 enum SystemState
 {
