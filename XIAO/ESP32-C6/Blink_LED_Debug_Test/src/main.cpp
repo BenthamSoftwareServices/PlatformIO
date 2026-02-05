@@ -1,4 +1,4 @@
-// Blink an external LED on D10
+// Blink an external LED on D1, or the on-board yellow LED on D15
 // VITAL: Pin D8 must be pulled up to 3v3 via a 10K resistor, otherwise D8
 // floats and causes debugging to fail.
 // To start debugging first upload the code then click the debug icon, in the
@@ -30,8 +30,8 @@
 
 #include <Arduino.h>
 
-int ledPin = 1; // External LED
-// int ledPin = 15; // On-board LED
+// int ledPin = 1; // External LED
+int ledPin = 15; // On-board LED
 int onDelay = 500;
 int offDelay = 1000;
 int32_t counter = 0;
