@@ -23,7 +23,7 @@ void setup()
 void loop()
 {
     digitalWrite(LED, LOW); // Turn off the LED
-    delay(1250);
+    delay(250);
 
     digitalWrite(LED, HIGH); // Turn on the LED
     delay(250);

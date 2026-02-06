@@ -1,6 +1,8 @@
 HOW TO DEBUG AN ESP32-S3 USING PLATFORMIO
 
-Using a dual environment that selects between DEBUG or RELEASE
+Using a dual environment that selects between DEBUG or RELEASE and which effectively stops in the setup() function when debugging
+
+To select either the DEBUG or RELEASE environments click the env button in the status bar, then select one from the text box on the menu bar
 
 Working Debug Procedure for ESP32-S3 setup()
 
