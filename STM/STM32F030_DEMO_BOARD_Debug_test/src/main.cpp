@@ -18,9 +18,9 @@ void setup() {
 }
 
 void loop() {
-  digitalWrite(boardLED, HIGH);   // Turn the LED on
-  delay(1000);                     // Wait for 500ms
-  digitalWrite(boardLED, LOW);    // Turn the LED off
+  digitalWrite(boardLED, HIGH);   // Turn the LED off
+  delay(100);                     // Wait for 500ms
+  digitalWrite(boardLED, LOW);    // Turn the LED on
   delay(1000);                     // Wait for 500ms
   
   Serial.println("Heartbeat...");
