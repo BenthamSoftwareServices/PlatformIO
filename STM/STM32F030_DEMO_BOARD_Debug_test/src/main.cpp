@@ -1,27 +1,28 @@
-/*
- * Simple Blinky for STM32F030F4P6 Demo Board
- * Target LED: PA4
- */
+// Simple Blinky for STM32F030F4P6 Demo Board
 
 #include <Arduino.h>
+#include <RTTStream.h>
+RTTStream rtt;
 
 // Define the LED pin based on the Demo Board V1.1 schematic
-const int boardLED = PA4; 
+const int boardLED = PA4;
+u_int32_t counter = 0;
 
-void setup() {
-  // Initialize PA4 as an output
-  pinMode(boardLED, OUTPUT);
-  
-  // Start Serial for debugging (requires a USB-to-UART on PA9/PA10)
-  Serial.begin(115200);
-  Serial.println("STM32F030F4P6 Initialised.");
+void setup()
+{
+    // Initialize PA4 as an output
+    pinMode(boardLED, OUTPUT);
 }
 
-void loop() {
-  digitalWrite(boardLED, HIGH);   // Turn the LED off
-  delay(100);                     // Wait for 500ms
-  digitalWrite(boardLED, LOW);    // Turn the LED on
-  delay(1000);                     // Wait for 500ms
-  
-  Serial.println("Heartbeat...");
+void loop()
+{
+    digitalWrite(boardLED, HIGH); // Turn the LED off
+    delay(100);                   // Wait for 500ms
+    digitalWrite(boardLED, LOW);  // Turn the LED on
+    delay(1000);                  // Wait for 500ms
+
+    ++counter; // Increments first, then returns the new value
+
+    rtt.print("counter = ");
+    rtt.println(counter);
 }
