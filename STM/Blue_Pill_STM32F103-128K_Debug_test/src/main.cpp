@@ -10,7 +10,7 @@
 u_int32_t counter = 0;
 
 // PC13 is the standard location for the onboard LED on the Blue Pill
-const int ledPin = PC13;
+const int ledPin = PC13; // For Blue Pill and STM32F103RET6
 
 RTTStream rtt; // Initialise the RTT stream
 
@@ -24,13 +24,13 @@ void setup()
 
 void loop()
 {
-    digitalWrite(PC13, LOW);
+    digitalWrite(ledPin, LOW);
     rtt.print(counter);
     rtt.println(" LED ON");
-    delay(1000);
-    digitalWrite(PC13, HIGH);
+    delay(100);
+    digitalWrite(ledPin, HIGH);
     rtt.print(counter);
     rtt.println(" LED OFF");
-    delay(1000);
+    delay(100);
     counter++;
 }
