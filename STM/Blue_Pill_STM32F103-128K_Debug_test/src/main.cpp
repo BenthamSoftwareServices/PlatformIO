@@ -1,8 +1,6 @@
-/*
- * Blue Pill Onboard LED Blink
- * Target: STM32F103C8 (128KB variant)
- * LED Pin: PC13 (Active Low)
- */
+ //Blue Pill Onboard LED Blink
+ //Target: STM32F103C8 (128KB variant)
+ //LED Pin: PC13 (Active Low)
 
 #include <Arduino.h>
 #include <RTTStream.h>
