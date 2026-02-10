@@ -1,5 +1,0 @@
-r
-loadbin .pio/build/demo_f030f4/firmware.bin, 0x08000000
-r
-g
-q
