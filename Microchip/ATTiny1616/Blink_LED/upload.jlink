@@ -1,0 +1,8 @@
+device ATtiny1616
+si 1
+speed 4000
+connect
+loadfile "E:/Users/Steven/Documents/GitHub/PlatformIO/Microchip/ATTiny1616/Blink_LED/.pio/build/ATtiny1616/firmware.hex"
+r
+g
+q
