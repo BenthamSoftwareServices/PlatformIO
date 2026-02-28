@@ -7,6 +7,7 @@
 #include "SEGGER_RTT.h"
 #include <Arduino.h>
 
+#define mS 500 // Define milliseconds for delay function
 #define ledPin                                                                 \
     PC13 // PC13 is the standard location for the onboard Blue LED on the mini
          // board.  Using define is better than const int for pin numbers in
@@ -31,9 +32,9 @@ void loop()
 {
     digitalWrite(ledPin, LOW); // Turn LED on
     SEGGER_RTT_printf(0, "%d LED ON\n", counter);
-    delay(100);
+    delay(mS);
     digitalWrite(ledPin, HIGH); // Turn LED off
     SEGGER_RTT_printf(0, "%d LED OFF\n", counter);
-    delay(100);
+    delay(mS);
     counter++;
 }
