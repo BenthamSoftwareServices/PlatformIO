@@ -1,6 +1,8 @@
 // Black Pill Onboard LED Blink
 // Target: STM32F411CE
 // LED Pin: PC13 (Active Low)
+// Download Segger_RTT library from https://github.com/SEGGERMicro/RTT/
+// Place SEGGER_RTT library files into lib/SEGGER_RTT directory in project
 
 #include "SEGGER_RTT.h"
 #include <Arduino.h>
