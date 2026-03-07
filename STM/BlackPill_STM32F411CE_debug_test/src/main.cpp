@@ -30,7 +30,7 @@ void loop()
     digitalWrite(ledPin, LOW); // Turn LED on
     rtt.print(counter);
     rtt.println(" LED ON");
-    delay(1500);
+    delay(500);
     digitalWrite(ledPin, HIGH); // Turn LED off
     rtt.print(counter);
     rtt.println(" LED OFF");
