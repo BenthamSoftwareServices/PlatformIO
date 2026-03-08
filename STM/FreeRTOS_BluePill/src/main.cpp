@@ -28,7 +28,8 @@ void TaskBlinkInternal(void *pvParameters)
     {
         digitalWrite(PC13, !digitalRead(PC13));
         vTaskDelay(pdMS_TO_TICKS(510));
-        if (myParam == NULL)
+        if (myParam == NULL) // This condition is always true, but it prevents
+                             // the compiler from optimizing away the variable
         {
             __asm__("nop"); // Assembly "No Operation"
         }
@@ -46,8 +47,9 @@ void TaskBlinkExternal(void *pvParameters)
     for (;;)
     {
         digitalWrite(PA1, !digitalRead(PA1));
-        vTaskDelay(pdMS_TO_TICKS(200));
-        if (myParam == NULL)
+        vTaskDelay(pdMS_TO_TICKS(600));
+        if (myParam == NULL) // This condition is always true, but it prevents
+                             // the compiler from optimizing away the variable
         {
             __asm__("nop"); // Assembly "No Operation"
         }
