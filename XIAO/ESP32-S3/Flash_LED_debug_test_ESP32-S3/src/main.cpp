@@ -2,28 +2,27 @@
 
 // #define LED 21 //Built-in orange user LED on GPIO21 on XIAO ESP32-S3
 #define LED LED_BUILTIN // Built-in orange user LED on GPIO21 on XIAO ESP32-S3
+int count = 0;          // Initialised to zero
 
 void setup()
 {
-    // The following five lines cause execution to stop if the environment (env)
-    // is set to env:DEBUG otherwise they are ignored if env:RELEASE is selected
-     #ifdef DEBUG_SETUP
-       volatile int stop_here = 1;
-      while (stop_here) //Set a breakpoint at this line the spin loop in
-      //setup()    ;
-     #endif
+    if (count < 100000)
+    {
+        // Increment the counter
+        count++;
+    }
 
     delay(100);
     pinMode(LED, OUTPUT);
-    digitalWrite(LED, HIGH); // Turn on the LED
+    digitalWrite(LED, HIGH); // Turn off the LED
     asm("nop");              // Use continue (F10) at this line if debugging
 }
 
 void loop()
 {
-    digitalWrite(LED, LOW); // Turn off the LED
+    digitalWrite(LED, LOW); // Turn on the LED
     delay(250);
 
-    digitalWrite(LED, HIGH); // Turn on the LED
+    digitalWrite(LED, HIGH); // Turn off the LED
     delay(250);
 }
