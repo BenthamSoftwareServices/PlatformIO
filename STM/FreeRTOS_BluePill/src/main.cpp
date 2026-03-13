@@ -27,7 +27,7 @@ void TaskBlinkInternal(void *pvParameters)
     for (;;)
     {
         digitalWrite(PC13, !digitalRead(PC13));
-        vTaskDelay(pdMS_TO_TICKS(510));
+        vTaskDelay(pdMS_TO_TICKS(500));
         if (myParam == NULL) // This condition is always true, but it prevents
                              // the compiler from optimizing away the variable
         {
