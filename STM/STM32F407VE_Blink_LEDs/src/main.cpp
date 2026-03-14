@@ -30,7 +30,7 @@ void loop()
 
     unsigned long currentMillis = millis();
 
-    // LED1: toggle every 500ms → 1s full cycle
+    // LED1: toggle every 600ms → 1s full cycle
     if (currentMillis - led1PrevMillis >= 600)
     {
         led1PrevMillis = currentMillis;
@@ -38,7 +38,7 @@ void loop()
         led1State = !led1State;
     }
 
-    // LED2: toggle every 250ms → 0.5s full cycle
+    // LED2: toggle every 500ms → 0.5s full cycle
     if (currentMillis - led2PrevMillis >= 500)
     {
         led2PrevMillis = currentMillis;
@@ -46,7 +46,7 @@ void loop()
         led2State = !led2State;
     }
 
-    // LED3: toggle every 1000ms → 2s full cycle
+    // LED3: toggle every 700ms → 2s full cycle
     if (currentMillis - led3PrevMillis >= 700)
     {
         led3PrevMillis = currentMillis;
